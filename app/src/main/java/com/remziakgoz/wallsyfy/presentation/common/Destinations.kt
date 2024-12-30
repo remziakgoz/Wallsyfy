@@ -31,4 +31,22 @@ object Detail : Destination {
     })
 }
 
-val wallpaperDestinations = listOf(Wallpapers, Detail)
+object MostFavorites : Destination {
+    override val title: String
+        get() = "Most Favorites Wallpaper"
+    override val route: String
+        get() = "favorites"
+    override val routeWithArgs: String
+        get() = route
+}
+
+object MostDownload : Destination {
+    override val title: String
+        get() = "Most Downloaded Wallpapers"
+    override val route: String
+        get() = "most_downloaded"
+    override val routeWithArgs: String
+        get() = route
+}
+
+val wallpaperDestinations = listOf(Wallpapers, Detail, MostFavorites, MostDownload)

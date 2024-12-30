@@ -17,4 +17,16 @@ class WallpaperService : KtorApi() {
         parameter("q", search)
     }.body()
 
+    suspend fun getMostDownloadedWallpapers(perPage : Int = 10) : WallpapersResponse = client.get {
+        pathUrl("api/")
+        parameter("order", "downloads")
+        parameter("per_page", perPage)
+    }.body()
+
+    suspend fun getMostFavoriteWallpapers(perPage : Int = 10) : WallpapersResponse = client.get {
+        pathUrl("api/")
+        parameter("order", "likes")
+        parameter("per_page", perPage)
+    }.body()
+
 }

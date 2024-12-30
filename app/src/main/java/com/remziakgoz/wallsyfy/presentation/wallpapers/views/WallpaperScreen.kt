@@ -21,22 +21,23 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.remziakgoz.wallsyfy.domain.model.Wallpaper
 import com.remziakgoz.wallsyfy.presentation.wallpapers.WallpapersEvent
 import com.remziakgoz.wallsyfy.presentation.wallpapers.WallpapersScreenState
-import com.remziakgoz.wallsyfy.presentation.wallpapers.WallpapersViewModel
+import com.remziakgoz.wallsyfy.presentation.wallpapers.viewmodels.WallpapersViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -55,14 +56,23 @@ fun WallpaperScreen(
 
     val gridState = rememberLazyGridState()
     val isSearchBarVisible = remember { mutableStateOf(true) }
+    var previousOffset by remember { mutableIntStateOf(0) }
+
 
     LaunchedEffect(remember { derivedStateOf { gridState.firstVisibleItemScrollOffset } }) {
-        snapshotFlow { gridState.firstVisibleItemScrollOffset }
-            .collect { offset ->
-                isSearchBarVisible.value = offset == 0
+        snapshotFlow {  gridState.firstVisibleItemScrollOffset to gridState.isScrollInProgress }
+            .collect { (offset, isScrolling) ->
+
+                if (isScrolling) {
+                    if (offset > previousOffset) {
+                        isSearchBarVisible.value = false
+                    } else if (offset < previousOffset) {
+                        isSearchBarVisible.value = true
+                    }
+                }
+                previousOffset = offset
             }
     }
-
     Box(
         modifier = modifier
             .fillMaxSize()

@@ -10,8 +10,13 @@ class GetWallpapersUseCase : KoinComponent {
     private val repository : WallpaperRepository by inject()
 
     @Throws(Exception::class)
-    suspend operator fun invoke(perPage : Int) : List<Wallpaper> {
-        return repository.getWallpapers(perPage = perPage)
+    suspend operator fun invoke(
+        perPage : Int,
+        loadedWallpaperIds : Set<Int>
+    ) : Pair<List<Wallpaper>, Boolean> {
+        val resultWallpapers = repository.getWallpapers(perPage = perPage)
+        val newWallpapers = resultWallpapers.filter { !loadedWallpaperIds.contains(it.id) }
+        return Pair(newWallpapers, newWallpapers.isEmpty())
     }
 
 }

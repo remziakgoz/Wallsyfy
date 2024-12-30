@@ -1,38 +1,37 @@
 package com.remziakgoz.wallsyfy.presentation.wallpaper_detail.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.remziakgoz.wallsyfy.R
 import com.remziakgoz.wallsyfy.domain.model.Wallpaper
 import com.remziakgoz.wallsyfy.presentation.wallpaper_detail.DetailViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
@@ -41,96 +40,109 @@ fun DetailScreen(
 ) {
 
     val context = LocalContext.current
-
-    Box(
-        modifier = modifier.fillMaxSize()
-    ) {
-
-        AsyncImage(
-            model = wallpaper.largeImageUrl,
-            contentDescription = wallpaper.tags,
-            contentScale = ContentScale.Crop,
-            modifier = modifier
-                .fillMaxSize()
-        )
+    var showWallpaperDialog by remember { mutableStateOf(false) }
+    var showDownloadDialog by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
 
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(20.dp)
-                .align(Alignment.BottomStart)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
+    Scaffold(
+        snackbarHost = { CustomSnackbar(snackbarHostState = snackbarHostState) },
+        content = {
+            Box(
+                modifier = modifier.fillMaxSize()
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.romance),
-                    contentDescription = "Likes Icon",
-                    tint = Color.Red,
-                    modifier = modifier.size(30.dp)
-                )
-                Spacer(modifier = modifier.width(8.dp))
-                Text(
-                    text = "${wallpaper.likes}",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        shadow = Shadow(
-                            color = Color.Black, offset = Offset(1f, 1f), blurRadius = 4f
+                WallpaperImage(wallpaper = wallpaper)
+                LikeAndDownloadInfo(wallpaper = wallpaper,
+                    modifier = modifier
+                        .align(Alignment.BottomStart))
+
+                Column(
+                    modifier = modifier
+                        .padding(20.dp)
+                        .align(Alignment.BottomEnd),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    Button(
+                        onClick = {
+                            showWallpaperDialog = true
+                        },
+                        modifier = modifier
+                            .size(70.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color(0xFFF9E5A3),
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(50),
+                        elevation = ButtonDefaults.elevation(defaultElevation = 8.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.backgroundset),
+                            contentDescription = "Set background",
+                            tint = Color.Unspecified,
+                            modifier = modifier.size(56.dp)
                         )
-                    ),
-                    color = Color.White
-                )
+
+                    }
+
+                    Button(
+                        onClick = {
+                            showDownloadDialog = true
+                        },
+                        modifier = modifier
+                            .size(70.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color(0xFFF9E5A3),
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(50),
+                        elevation = ButtonDefaults.elevation(defaultElevation = 8.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.downloadiconbuble),
+                            contentDescription = "Download Icon",
+                            tint = Color.Unspecified,
+                            modifier = modifier.size(56.dp)
+                        )
+                    }
+
+                }
+
             }
-            Spacer(modifier = modifier.height(8.dp))
 
+        }
+    )
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.like), // Tık simgesi
-                    contentDescription = "Download Icon",
-                    tint = Color.Red,
-                    modifier = modifier.size(30.dp)
+    SetWallpaperDialog(
+        showDialog = showWallpaperDialog,
+        onDismiss = { showWallpaperDialog = false },
+        onSetWallpaper = { type ->
+            scope.launch {
+                viewModel.setWallpaper(
+                    context = context,
+                    imageUrl = wallpaper.largeImageUrl,
+                    type = type
                 )
-                Spacer(modifier = modifier.width(8.dp))
-                Text(
-                    text = "${wallpaper.downloads}",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        shadow = Shadow(
-                            color = Color.Black, offset = Offset(1f, 1f), blurRadius = 4f
-                        )
-
-                    ),
-                    color = Color.White
-                )
+                showWallpaperDialog = false
+                snackbarHostState.showSnackbar("Wallpaper set for $type")
             }
         }
+    )
 
-
-        Button(
-            onClick = {
-
-            },
-            modifier = modifier
-                .size(104.dp)
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFF9E5A3),
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(50),
-            elevation = ButtonDefaults.elevation(defaultElevation = 8.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.downloadiconbuble),
-                contentDescription = "Download Icon",
-                tint = Color.Unspecified,
-                modifier = modifier.size(56.dp)
+    SetDownloadDialog(
+        showDialog = showDownloadDialog,
+        onDismiss = { showDownloadDialog = false },
+    ) {
+        scope.launch {
+            viewModel.saveWallpaper(
+                imageUrl = wallpaper.largeImageUrl,
+                fileName = wallpaper.id.toString(),
+                context = context
             )
+            showDownloadDialog = false
         }
     }
 }
+
+

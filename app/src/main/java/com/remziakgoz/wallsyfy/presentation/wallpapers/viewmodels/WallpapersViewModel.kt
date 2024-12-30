@@ -1,4 +1,4 @@
-package com.remziakgoz.wallsyfy.presentation.wallpapers
+package com.remziakgoz.wallsyfy.presentation.wallpapers.viewmodels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.remziakgoz.wallsyfy.domain.use_cases.GetWallpapersUseCase
 import com.remziakgoz.wallsyfy.domain.use_cases.SearchWallpapersUseCase
+import com.remziakgoz.wallsyfy.presentation.wallpapers.WallpapersEvent
+import com.remziakgoz.wallsyfy.presentation.wallpapers.WallpapersScreenState
 import kotlinx.coroutines.launch
 
 class WallpapersViewModel(
@@ -41,18 +43,13 @@ class WallpapersViewModel(
             _state.value = _state.value.copy(isLoading = true)
 
             try {
-                val resultWallpapers = getWallpapersUseCase(perPage = currentPerPage)
-
-                val newWallpapers = resultWallpapers.filter { wallpaper ->
-                    !loadedWallpaperIds.contains(wallpaper.id)
-                }
-
+                val (newWallpapers, loadFinished) = getWallpapersUseCase(perPage = currentPerPage, loadedWallpaperIds = loadedWallpaperIds)
                 loadedWallpaperIds.addAll(newWallpapers.map { it.id })
 
                 _state.value = _state.value.copy(
                     isLoading = false,
                     refreshing = false,
-                    loadFinished = newWallpapers.isEmpty(),
+                    loadFinished = loadFinished,
                     wallpapers = _state.value.wallpapers + newWallpapers
                 )
 
@@ -71,21 +68,19 @@ class WallpapersViewModel(
 
     private fun searchWallpapers(search : String) {
         viewModelScope.launch {
-            _state.value = _state.value.copy(search = search)
+            _state.value = _state.value.copy(search = search, wallpapers = emptyList())
 
             try {
-                val resultWallpapers = searchWallpapersUseCase(search = search)
+                loadedWallpaperIds.clear()
+                currentPerPage = 10
 
-                val searchedWallpapers = resultWallpapers.filter { wallpaper ->
-                    !loadedWallpaperIds.contains(wallpaper.id)
-                }
-
+                val (searchedWallpapers, loadFinished) = searchWallpapersUseCase(search = search, loadedWallpaperIds = loadedWallpaperIds)
                 loadedWallpaperIds.addAll(searchedWallpapers.map { it.id })
 
                 _state.value = _state.value.copy(
                     isLoading = false,
                     refreshing = false,
-                    loadFinished = searchedWallpapers.isEmpty(),
+                    loadFinished = loadFinished,
                     wallpapers = searchedWallpapers
                 )
 

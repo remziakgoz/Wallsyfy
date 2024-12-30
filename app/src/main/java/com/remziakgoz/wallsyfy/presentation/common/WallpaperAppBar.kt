@@ -23,7 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun WallpaperAppBar(
@@ -33,15 +36,18 @@ fun WallpaperAppBar(
     onNavigateBack: () -> Unit
 ) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(100.dp)
+            .padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()),
+        color = MaterialTheme.colorScheme.primary,
         tonalElevation = 4.dp,
-        shadowElevation = 4.dp,
-        color = MaterialTheme.colorScheme.primary
+        shadowElevation = 4.dp
     ) {
         Row(
-            modifier = modifier.padding(horizontal = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AnimatedVisibility(visible = canNavigateBack) {
@@ -49,21 +55,19 @@ fun WallpaperAppBar(
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back icon",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(end = 8.dp)
-                            .clickable { onNavigateBack() },
                         tint = Color.White
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
             }
 
-
             Text(
                 text = currentScreen.title,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimary
+                fontFamily = FontFamily.Cursive,
+                fontWeight = FontWeight.Black,
+                fontSize = 28.sp,
+                color = Color.White,
             )
         }
     }

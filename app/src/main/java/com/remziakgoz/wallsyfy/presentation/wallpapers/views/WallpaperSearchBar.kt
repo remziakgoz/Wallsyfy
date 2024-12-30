@@ -58,6 +58,7 @@ fun WallpaperSearchBar(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
                 focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
             ),
             modifier = Modifier.fillMaxWidth()
                 .shadow(5.dp, CircleShape)

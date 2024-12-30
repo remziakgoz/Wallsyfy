@@ -15,4 +15,12 @@ class RemoteDataSource(
         apiService.searchWallpapers(search = search)
     }
 
+    suspend fun getMostDownloadedWallpapers(perPage: Int) = withContext(Dispatchers.IO) {
+        apiService.getMostDownloadedWallpapers(perPage = perPage)
+    }
+
+    suspend fun getMostFavoriteWallpapers(perPage: Int) = withContext(Dispatchers.IO) {
+        apiService.getMostFavoriteWallpapers(perPage = perPage)
+    }
+
 }
