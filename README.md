@@ -3,14 +3,16 @@
 Wallsyfy is an Android application that allows users to explore and interact with a wide variety of high-quality wallpapers. Users can browse through the collection, set wallpapers, and download them with ease. The app is built using **Jetpack Compose** for the user interface (UI) and follows the **MVVM** architecture for a clean, maintainable, and testable codebase.
 
 ## Screenshots
-![Screenshot 2025-01-06 at 19 28 04](https://github.com/user-attachments/assets/d00288ae-f08a-4ebe-83a8-6ee2d6278e71)
-![Screenshot 2025-01-06 at 19 28 22](https://github.com/user-attachments/assets/2d56b7f0-a937-450a-8ede-a533adaeaba1)
-![Screenshot 2025-01-06 at 19 28 27](https://github.com/user-attachments/assets/d8add655-bc44-432b-ba1c-e0442afd7c30)
-![Screenshot 2025-01-06 at 19 28 44](https://github.com/user-attachments/assets/4dba5f48-8bd5-470c-8b55-2eda7c8de981)
-![Screenshot 2025-01-06 at 19 28 37](https://github.com/user-attachments/assets/8df57e4a-d9b3-473a-84a3-5a3ee84d4312)
-![Screenshot 2025-01-06 at 19 28 41](https://github.com/user-attachments/assets/881c7f42-cec4-46ec-88fb-7b8fba6c27de)
-![Screenshot 2025-01-06 at 19 28 13](https://github.com/user-attachments/assets/f8a76860-f438-4f5f-b2c8-e647dc6b1865)
-![Screenshot 2025-01-06 at 19 27 33](https://github.com/user-attachments/assets/ff4d7dc0-0a56-4a94-8457-c30469306a65)
+
+<img src="https://github.com/user-attachments/assets/d00288ae-f08a-4ebe-83a8-6ee2d6278e71" alt="Screenshot 1" width="250">
+<img src="https://github.com/user-attachments/assets/2d56b7f0-a937-450a-8ede-a533adaeaba1" alt="Screenshot 2" width="250">
+<img src="https://github.com/user-attachments/assets/d8add655-bc44-432b-ba1c-e0442afd7c30" alt="Screenshot 3" width="250">
+<img src="https://github.com/user-attachments/assets/4dba5f48-8bd5-470c-8b55-2eda7c8de981" alt="Screenshot 4" width="250">
+<img src="https://github.com/user-attachments/assets/8df57e4a-d9b3-473a-84a3-5a3ee84d4312" alt="Screenshot 5" width="250">
+<img src="https://github.com/user-attachments/assets/881c7f42-cec4-46ec-88fb-7b8fba6c27de" alt="Screenshot 6" width="250">
+<img src="https://github.com/user-attachments/assets/f8a76860-f438-4f5f-b2c8-e647dc6b1865" alt="Screenshot 7" width="250">
+<img src="https://github.com/user-attachments/assets/ff4d7dc0-0a56-4a94-8457-c30469306a65" alt="Screenshot 8" width="250">
+
 
 ## Features
 
