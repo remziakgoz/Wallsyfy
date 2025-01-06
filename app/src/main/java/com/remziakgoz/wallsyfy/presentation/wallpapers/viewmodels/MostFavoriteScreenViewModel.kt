@@ -54,7 +54,7 @@ class MostFavoriteScreenViewModel(
                     isLoading = false,
                     refreshing = false,
                     loadFinished = true,
-                    error = "Couldn't load wallpapers: ${e.localizedMessage}"
+                    error = "Couldn't load wallpapers"
                 )
             }
         }

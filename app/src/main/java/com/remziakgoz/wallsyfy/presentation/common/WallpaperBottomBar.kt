@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.remziakgoz.wallsyfy.R
 import com.remziakgoz.wallsyfy.presentation.ui.theme.GreenJC
+import com.remziakgoz.wallsyfy.presentation.ui.theme.customFont
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -44,7 +45,6 @@ fun WallpaperBottomBar(
         ) {
             val selected = remember { mutableStateOf(currentScreen.routeWithArgs) }
 
-            // Home Button with Text
             IconButton(onClick = {
                 selected.value = Wallpapers.routeWithArgs
                 navController.navigate(Wallpapers.routeWithArgs) {
@@ -59,12 +59,12 @@ fun WallpaperBottomBar(
                     Text(
                         text = "Home",
                         style = MaterialTheme.typography.bodySmall,
+                        fontFamily = customFont,
                         color = if (selected.value == Wallpapers.route) Color.White else Color.Black
                     )
                 }
             }
 
-            // Most Favorites Button with Text
             IconButton(onClick = {
                 selected.value = MostFavorites.route
                 navController.navigate(MostFavorites.routeWithArgs) {
@@ -79,12 +79,12 @@ fun WallpaperBottomBar(
                     Text(
                         text = "Most Favorites",
                         style = MaterialTheme.typography.bodySmall,
+                        fontFamily = customFont,
                         color = if (selected.value == MostFavorites.route) Color.White else Color.Black
                     )
                 }
             }
 
-            // Most Downloads Button with Text
             IconButton(onClick = {
                 selected.value = MostDownload.route
                 navController.navigate(MostDownload.routeWithArgs) {
@@ -99,6 +99,7 @@ fun WallpaperBottomBar(
                     Text(
                         text = "Most Downloaded",
                         style = MaterialTheme.typography.bodySmall,
+                        fontFamily = customFont,
                         color = if (selected.value == MostDownload.route) Color.White else Color.Black
                     )
                 }

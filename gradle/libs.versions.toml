@@ -16,7 +16,17 @@ kotlinxSerialization = "1.4.0"
 navigationRuntimeKtx = "2.8.4"
 material = "1.4.3"
 navigationCompose = "2.8.4" # Compose Material version
+matertialFont = "1.9.0"
+navTestVersion = "2.8.5"
+coroutines-test = "1.7.3"
 
+test = "1.5.0"  # Koin test sürümü
+testUi = "1.0.5"
+mockk = "1.13.8"
+junitJupiter = "5.8.1"
+mockito-core = "5.5.0"
+mockito-junit = "5.5.0"
+mockito-android = "5.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,13 +45,11 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-material = { group = "androidx.compose.material", name = "material", version.ref = "material" }
 
-
 # New Libraries
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
@@ -51,15 +59,33 @@ ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.r
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
-
-
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+material = { group = "com.google.android.material", name = "material", version.ref = "matertialFont" }
+
+# Testing
+koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "test" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "testUi" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "testUi" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+test-runner = { group = "androidx.test", name = "runner", version.ref = "test" }
+test-rules = { group = "androidx.test", name = "rules", version.ref = "test" }
+nav-test = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navTestVersion"}
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
+mockito-junit = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito-junit" }
+mockito-android = { group = "org.mockito", name = "mockito-android", version.ref = "mockito-android" }
+
+# MockK dependencies
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-

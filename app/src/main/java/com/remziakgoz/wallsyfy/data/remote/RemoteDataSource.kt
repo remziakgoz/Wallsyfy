@@ -3,7 +3,7 @@ package com.remziakgoz.wallsyfy.data.remote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RemoteDataSource(
+open class RemoteDataSource(
     private val apiService: WallpaperService,
 ) {
 

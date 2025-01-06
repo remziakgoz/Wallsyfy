@@ -38,6 +38,14 @@ android {
     buildFeatures {
         compose = true
     }
+
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
+        }
+    }
 }
 
 dependencies {
@@ -64,11 +72,51 @@ dependencies {
     implementation(libs.androidx.material)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.koin.compose)
+    implementation(libs.material)
     testImplementation(libs.junit)
+
+    testImplementation(libs.koin.test)
+    testImplementation(libs.test.runner)
+    testImplementation(libs.test.rules)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.compose.ui.test)
+    testImplementation(libs.androidx.compose.ui.test.manifest)
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit.jupiter)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.mockk)
+    androidTestImplementation(libs.koin.test)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.compose.ui.test)
+    androidTestImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(libs.nav.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.junit)
+    
+    testImplementation(libs.coroutines.test)
+
+    androidTestImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockito.junit)
+    androidTestImplementation(libs.mockito.android)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    testImplementation ("com.google.truth:truth:1.4.4")
+
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.agent)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.coroutines.test)
+
 }

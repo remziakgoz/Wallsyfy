@@ -122,7 +122,7 @@ fun DetailScreen(
                 viewModel.setWallpaper(
                     context = context,
                     imageUrl = wallpaper.largeImageUrl,
-                    type = type
+                    type = type,
                 )
                 showWallpaperDialog = false
                 snackbarHostState.showSnackbar("Wallpaper set for $type")

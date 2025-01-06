@@ -6,7 +6,6 @@ import android.os.Build
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.remziakgoz.wallsyfy.Util.DialogUtils
 import com.remziakgoz.wallsyfy.domain.model.Wallpaper
 import com.remziakgoz.wallsyfy.domain.use_cases.SaveWallpaperUseCase
 import com.remziakgoz.wallsyfy.domain.use_cases.SetWallpaperUseCase

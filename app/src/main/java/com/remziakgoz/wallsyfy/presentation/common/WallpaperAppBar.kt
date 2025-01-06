@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.remziakgoz.wallsyfy.presentation.ui.theme.customFont
 
 @Composable
 fun WallpaperAppBar(
@@ -64,7 +65,7 @@ fun WallpaperAppBar(
             Text(
                 text = currentScreen.title,
                 style = MaterialTheme.typography.titleMedium,
-                fontFamily = FontFamily.Cursive,
+                fontFamily = customFont,
                 fontWeight = FontWeight.Black,
                 fontSize = 28.sp,
                 color = Color.White,

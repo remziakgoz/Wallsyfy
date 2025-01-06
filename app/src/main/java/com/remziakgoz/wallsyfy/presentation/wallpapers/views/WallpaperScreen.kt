@@ -47,6 +47,7 @@ fun WallpaperScreen(
     state: WallpapersScreenState,
     loadNextWallpapers: (Boolean) -> Unit,
     navigateToDetail: (Wallpaper) -> Unit,
+    showSearchBar: Boolean = true,
     viewModel: WallpapersViewModel = koinViewModel()
 ) {
     val pullRefreshState = rememberPullRefreshState(
@@ -55,15 +56,15 @@ fun WallpaperScreen(
     )
 
     val gridState = rememberLazyGridState()
-    val isSearchBarVisible = remember { mutableStateOf(true) }
+    val isSearchBarVisible = remember { mutableStateOf(showSearchBar) }
     var previousOffset by remember { mutableIntStateOf(0) }
 
 
     LaunchedEffect(remember { derivedStateOf { gridState.firstVisibleItemScrollOffset } }) {
-        snapshotFlow {  gridState.firstVisibleItemScrollOffset to gridState.isScrollInProgress }
+        snapshotFlow { gridState.firstVisibleItemScrollOffset to gridState.isScrollInProgress }
             .collect { (offset, isScrolling) ->
 
-                if (isScrolling) {
+                if (isScrolling && showSearchBar) {
                     if (offset > previousOffset) {
                         isSearchBarVisible.value = false
                     } else if (offset < previousOffset) {
@@ -105,7 +106,9 @@ fun WallpaperScreen(
                     state.wallpapers,
                     key = { _, wallpaper -> wallpaper.id }
                 ) { index, wallpaper ->
-                    WallpaperListItem(wallpaper = wallpaper, onWallpaperClick = { navigateToDetail(wallpaper) })
+                    WallpaperListItem(
+                        wallpaper = wallpaper,
+                        onWallpaperClick = { navigateToDetail(wallpaper) })
 
                     if (index >= state.wallpapers.size - 1 && !state.isLoading && !state.loadFinished) {
                         LaunchedEffect(key1 = Unit, block = { loadNextWallpapers(false) })
